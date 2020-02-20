@@ -96,6 +96,6 @@ The scripts can be executed also from gui:
 
 # Disclaimer
 
-You should test the scripts before applying on a live system, and you can modify them freely to your needs.
+You should test the scripts before creating a new a live system with them. You can also modify them freely to your needs.
 
 Always have backup!
