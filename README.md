@@ -51,7 +51,7 @@ It will do the following:
 
 If you want to go back to a previous state of the system, you must reboot, and select the a snapshot from the grub menu (under 'Select snapshot') to boot into. After you login, a windows will warn you, that this is a read only snapshot. It also give you the command to do the rollback. After you are sure that you want to rollback to that state, you should run: *sudo btrfs_snapper_do_rollback.sh*
 
-![read only check, rollback command help](readonyl-check.png)
+![read only check, rollback command help](images/readonly-check.png)
 
 After the reboot, you will get back the selected state of your system, like a time travel.
 
@@ -90,9 +90,9 @@ For example, if you want to test these scripts in virtualbox, use can use the *m
 # executing the scripts from gui
 
 The scripts can be executed also from gui:
-![set the script as executable](makeExecutable.png)
-![exetute with terminal](executeScript01.png)
-![execute](executeScript02.png)
+![set the script as executable](images/makeExecutable.png)
+![exetute with terminal](images/executeScript01.png)
+![execute](images/executeScript02.png)
 
 # Disclaimer
 
