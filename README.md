@@ -1,18 +1,63 @@
-These scripts can be used to automate some tasks to setup a complete manjaro system. Also works with manjaro32, but not fully tested.
+# Btrfs snapshots with snapper, with easy rollback
 
-# btrfs snapshots with snapper, with easy rollback
+These scripts can be used to automate some tasks to setup a complete manjaro system. It may be compatible with manjaro32, but not fully tested.
+
 With btrfs filesystem, we can set up a system with snapshots. With snapper and grub, we can rollback to a previous state, if anything goes wrong after a package install, or system update or anything else.
 
-The basic precondition is to create a btrfs root, and a swap partition at installation time.
+The main goal is to get a system up and running on btrfs and snapper to make the easy rollback possible additional benefit to get my favourite default software installed :)
 
-There are videos about the installation and setup with detailed instructions here:
+You can find the video from Nick (unicks.eu) below which inspired me to write these scripts.
 https://www.youtube.com/watch?v=-fT92-jGniI
 
-By default the installer will create only the */home* subvolume. Theese scripts will do additional things to set up a complete btrfs system, prepared for an easy rollback.
+# When and how to use these scripts?
+The scripts designed to run (partially) as a part of the manjaro installation process. 
+Once the installer finished you can execute the first script right from the point when the installer finished but before the system restarted. See more detailed info below.
 
-## 1. after the installation finished, but before the restart
+The basic precondition for the installation is to create a btrfs root, and a swap partition from the installer.
+
+> Please note:
+> By default the installer will create only the */home* subvolume. Theese scripts will do additional things to set up a complete btrfs system, prepared for an easy rollback.
+
+
+
+## Basic flow to run the scripts
+
+Setup:
+
+1. manjaro_setup_btrfs_01_after_install_before_restart.sh
+2. manjaro_setup_btrfs_02_after_install_after_restart.sh
+
+Rollback:
+
+1. btrfs_snapper_do_rollback.sh
+
+
+
+You can find the list of scripts in the table below for completeness
+
+| Filename                                                     | Description                       |
+| ------------------------------------------------------------ | --------------------------------- |
+| [manjaro_setup_btrfs_01_after_install_before_restart.sh](#script-01) | Main script                       |
+| manjaro_setup_btrfs_02_after_install_after_restart.sh        | Continuation script after restart |
+| btrfs_grub_install_chroot.sh                                 |                                   |
+| btrfs_ro_alert.sh                                            |                                   |
+| btrfs_snapper_do_rollback.sh                                 |                                   |
+| manjaro_setup_base.sh                                        |                                   |
+| manjaro_setup_base_settings.sh                               |                                   |
+| manjaro_setup_custom.sh                                      |                                   |
+| manjaro_setup_developer.sh                                   |                                   |
+| manjaro_setup_encrypted_home.sh                              |                                   |
+| manjaro_setup_keyfix.sh                                      |                                   |
+| manjaro_setup_lang_hu.sh                                     |                                   |
+| manjaro_setup_virtualbox.sh                                  |                                   |
+| manjaro_setup_xfce.sh                                        |                                   |
+| manjaro_setup_xfce_desktop.sh                                |                                   |
+| xfce_skeleton.tar.bz2                                        |                                   |
+
+
+## 1. manjaro_setup_btrfs_01_after_install_before_restart.sh <a name="script-01"></a>
 When the installer finished, do not restart the system yet!
-Run this script, right after the installation finished: *manjaro_setup_btrfs_01_after_install_before_restart.sh*.
+Run this script, right after the installer: *manjaro_setup_btrfs_01_after_install_before_restart.sh*.
 
 It will do the following:
 * if more than one partitions found with btrfs filesystem, prompt to choose the target 
@@ -23,7 +68,7 @@ It will do the following:
 
 Creating the */var* subvolume will greatly reduce the size of the snapshots, and give the ability to boot a read only snapshot, to do the rollback from there.
 
-After this script has finished, restart.
+After this script has finished, restart the system.
 
 ## 2. after the first start
 When you boot into the newly installed system:
