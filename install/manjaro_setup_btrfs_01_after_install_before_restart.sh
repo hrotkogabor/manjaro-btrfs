@@ -95,7 +95,7 @@ fi
 
 
 # copy these scripts to /usr/local/bin
-sudo cp $MY_PATH/*.sh /mnt/@usr/local/bin
+sudo cp $MY_PATH/usr/*.sh /mnt/@usr/local/bin
 sudo chmod +x /mnt/@usr/local/bin/*.sh
 
 sudo umount /mnt

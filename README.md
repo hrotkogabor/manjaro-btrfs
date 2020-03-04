@@ -18,69 +18,65 @@ The basic precondition for the installation is to create a btrfs root, and a swa
 > Please note:
 > By default the installer will create only the */home* subvolume. Theese scripts will do additional things to set up a complete btrfs system, prepared for an easy rollback.
 
-
-
 ## Basic flow to run the scripts
 
 Setup:
 
-1. manjaro_setup_btrfs_01_after_install_before_restart.sh
-2. manjaro_setup_btrfs_02_after_install_after_restart.sh
+1. install/manjaro_setup_btrfs_01_after_install_before_restart.sh
+2. install/manjaro_setup_btrfs_02_after_install_after_restart.sh
 
 Rollback:
 
 1. btrfs_snapper_do_rollback.sh
 
-
-
 You can find the list of scripts in the table below for completeness
 
 | Filename                                                     | Description                       |
 | ------------------------------------------------------------ | --------------------------------- |
-| [manjaro_setup_btrfs_01_after_install_before_restart.sh](#script-01) | Main script                       |
-| manjaro_setup_btrfs_02_after_install_after_restart.sh        | Continuation script after restart |
-| btrfs_grub_install_chroot.sh                                 |                                   |
-| btrfs_ro_alert.sh                                            |                                   |
-| btrfs_snapper_do_rollback.sh                                 |                                   |
-| manjaro_setup_base.sh                                        |                                   |
-| manjaro_setup_base_settings.sh                               |                                   |
-| manjaro_setup_custom.sh                                      |                                   |
-| manjaro_setup_developer.sh                                   |                                   |
-| manjaro_setup_encrypted_home.sh                              |                                   |
-| manjaro_setup_keyfix.sh                                      |                                   |
-| manjaro_setup_lang_hu.sh                                     |                                   |
-| manjaro_setup_virtualbox.sh                                  |                                   |
-| manjaro_setup_xfce.sh                                        |                                   |
-| manjaro_setup_xfce_desktop.sh                                |                                   |
-| xfce_skeleton.tar.bz2                                        |                                   |
+| [install/manjaro_setup_btrfs_01_after_install_before_restart.sh](#script-01) | Main script                       |
+| [install/manjaro_setup_btrfs_02_after_install_after_restart.sh](#script-02)  | Continuation script after restart |
+| install/usr/btrfs_grub_install_chroot.sh                         | This is a technical script called by another script, therefore you should **not** run it by hand. It will update and re-install grub. This script should be run in the chroot to the default subvolume.                                  |
+| install/usr/btrfs_ro_alert.sh                                    | Alert after boot if the btrfs filesystem is read only, and give the command to do the rollback. This script will be installed automatically. |
+| install/usr/btrfs_snapper_do_rollback.sh                         | This script will do a snapper rollback, and then update and re-install grub to use the proper snapshot at boot. |
+| [install/manjaro_setup_base.sh](#manjaro_setup_base)         | Basic system setup, tipycally executed after an install. Executed by [install/manjaro_setup_btrfs_02_after_install_after_restart.sh](#script-02) |
+| [install/manjaro_setup_base_settings.sh](manjaro_setup_base_settings) | Enable AUR and set AUR auto download key for the current user. Executed by [install/manjaro_setup_base.sh](#manjaro_setup_base)|
+| manjaro_setup_custom.sh                                      | Some custom installations, settings |
+| manjaro_setup_developer.sh                                   | Some development related installations, settings |
+| [manjaro_setup_encrypted_home.sh](#manjaro_setup_encrypted_home) | Encypt the home directory for a selected user |
+| [manjaro_setup_keyfix.sh](#manjaro_setup_keyfix)             | Refresh the package signing keys |
+| manjaro_setup_lang_hu.sh                                     | Install hungarian language packages for some program |
+| [manjaro_setup_virtualbox.sh](#manjaro_setup_virtualbox)     | Install the necessary packages for a virtualbox client |
+| [xfce/manjaro_setup_xfce.sh](#manjaro_setup_xfce)            | Install some xfce related package like dockarx and panel, and some panel applets |
+| [xfce/manjaro_setup_xfce_desktop.sh](#manjaro_setup_xfce_desktop) | This script will apply some modifications like add dockbarx dock, add some indicators to the panel, etc. It will use the file xfce/xfce_skeleton.tar.bz2 |
+| xfce/xfce_skeleton.tar.bz2         | This file contains an xfce session with basic settings like dockarx, other than default theme set, additional panel applets, etc. |
 
 
-## 1. manjaro_setup_btrfs_01_after_install_before_restart.sh <a name="script-01"></a>
+## 1. install/manjaro_setup_btrfs_01_after_install_before_restart.sh <a name="script-01"></a>
 When the installer finished, do not restart the system yet!
-Run this script, right after the installer: *manjaro_setup_btrfs_01_after_install_before_restart.sh*.
+Run this script, right after the installer: *install/manjaro_setup_btrfs_01_after_install_before_restart.sh*.
 
 It will do the following:
 * if more than one partitions found with btrfs filesystem, prompt to choose the target 
 * set the default subvolume
 * create subvolume */var* to be able to boot into a read-only snapshot
 * create subvolume on */usr/local*
-* move the pacman database to */usr/var/pacman* to reflect the state of the snapshot
+* move the pacman database to */usr/var/pacman* to always reflect the state of the snapshot
 
 Creating the */var* subvolume will greatly reduce the size of the snapshots, and give the ability to boot a read only snapshot, to do the rollback from there.
 
 After this script has finished, restart the system.
 
-## 2. after the first start
+## 2. after the first start <a name="script-02"></a>
 When you boot into the newly installed system:
-Before doing anything else, run the script *manjaro_setup_btrfs_02_after_install_after_restart.sh*.
+Before doing anything else, run the script *install/manjaro_setup_btrfs_02_after_install_after_restart.sh*.
 
 It will do the following:
-* call *manjaro_setup_base.sh*
+* call *install/manjaro_setup_base.sh* <a name="manjaro_setup_base"></a>
   * sync system time
   * try to set up the fastest mirror
   * do a full update, and install some necessary tools, like rsync, lsof ...
   * on 64bit systems, install the kernel bootsplash
-  * call *manjaro_setup_base_settings.sh*
+  * call *install/manjaro_setup_base_settings.sh* <a name="manjaro_setup_base_settings"></a>
     * enable AUR repository
     * enable auto key retrieve for AUR download
   * fix boot delay problem
@@ -94,7 +90,7 @@ It will do the following:
 
 ## rollback to a previous state
 
-If you want to go back to a previous state of the system, you must reboot, and select the a snapshot from the grub menu (under 'Select snapshot') to boot into. After you login, a windows will warn you, that this is a read only snapshot. It also give you the command to do the rollback. After you are sure that you want to rollback to that state, you should run: *sudo btrfs_snapper_do_rollback.sh*
+If you want to go back to a previous state of the system, you must reboot, and select the snapshot from the grub menu (under 'Select snapshot') to boot into. After you login, a window will warn you, that this is a read only snapshot. It also give you the command to do the rollback. After you are sure that you want to rollback to that state, you should run: *sudo btrfs_snapper_do_rollback.sh* from the terminal, as this script is installed on the system already.
 
 ![read only check, rollback command help](images/readonly-check.png)
 
@@ -102,7 +98,7 @@ After the reboot, you will get back the selected state of your system, like a ti
 
 Note: The user's */home* partition is not contained in the snapshot. 
 
-# encrypted home
+# encrypted home <a name="manjaro_setup_encrypted_home"></a>
 
 Because you can only create encrypted home for another not logged in user, you must create a separate user to set up the encrypted home for.
 
@@ -116,21 +112,21 @@ After setting encrypted home(s), a restart is advised.
 
 You should run this script for a user, that is not logged in currently.
 
-The script *manjaro_setup_xfce_desktop.sh* will appy some modifications like add dockbarx dock, add some indicators to the panel, etc ...
+First run the script *xfce/manjaro_setup_xfce.sh* <a name="manjaro_setup_xfce"></a> to install some xfce related package.
 
-The script *manjaro_setup_xfce.sh* needs to be run before this script!
+The script *xfce/manjaro_setup_xfce_desktop.sh* <a name="manjaro_setup_xfce_desktop"></a> will appy some modifications like add dockbarx dock, add some indicators to the panel, etc, for the selected user.
 
-# fix key problem during package update
+# fix key problem during package update <a name="manjaro_setup_keyfix"></a>
 
-Rarely required, but if there are package key problems, the script *manjaro_setup_keyfix.sh* will refresh the package signing keys.
+Rarely required, but if there are package key problems at update time, the script *manjaro_setup_keyfix.sh* will refresh the package signing keys.
 
 If we get a key error during an update, we can try to fix it, with this script.
 
 # other scripts
 
-The rest of the scripts are self-explanatory, and commented. Feel free to explore.
+The rest of the scripts are self-explanatory, and commented. Feel free to explore, or tailor them to your needs.
 
-For example, if you want to test these scripts in virtualbox, use can use the *manjaro_setup_virtualbox.sh* script to install the necessary packages for a virtualbox client.
+For example, if you want to test these scripts in virtualbox, use can use the *manjaro_setup_virtualbox.sh* <a name="manjaro_setup_virtualbox"></a> script to install the necessary packages for a virtualbox client.
 
 # executing the scripts from gui
 
