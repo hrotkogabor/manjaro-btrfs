@@ -38,7 +38,7 @@ You can find the list of scripts in the table below for completeness
 | install/usr/btrfs_grub_install_chroot.sh                         | This is a technical script called by another script, therefore you should **not** run it by hand. It will update and re-install grub. This script should be run in the chroot to the default subvolume.                                  |
 | install/usr/btrfs_ro_alert.sh                                    | Alert after boot if the btrfs filesystem is read only, and give the command to do the rollback. This script will be installed automatically. |
 | install/usr/btrfs_snapper_do_rollback.sh                         | This script will do a snapper rollback, and then update and re-install grub to use the proper snapshot at boot. |
-| [install/manjaro_setup_base.sh](#manjaro_setup_base)         | Basic system setup, tipycally executed after an install. Executed by [install/manjaro_setup_btrfs_02_after_install_after_restart.sh](#script-02) |
+| [install/manjaro_setup_base.sh](#manjaro_setup_base)         | Basic system setup, typically executed after an install. Executed by [install/manjaro_setup_btrfs_02_after_install_after_restart.sh](#script-02) |
 | [install/manjaro_setup_base_settings.sh](manjaro_setup_base_settings) | Enable AUR and set AUR auto download key for the current user. Executed by [install/manjaro_setup_base.sh](#manjaro_setup_base)|
 | manjaro_setup_custom.sh                                      | Some custom installations, settings |
 | manjaro_setup_developer.sh                                   | Some development related installations, settings |
