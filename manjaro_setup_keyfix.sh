@@ -1,6 +1,9 @@
 #!/bin/bash
 # if there are problems during update with the keys, this script will re-import the keys
 
+# remove partially downloaded files from cache
+rm /var/cache/pacman/pkg/*.part
+
 sudo rm -fr /etc/pacman.d/gnupg
 yes | LC_ALL=en_US.UTF-8 sudo pacman-key --init
 

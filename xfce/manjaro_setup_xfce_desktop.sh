@@ -22,8 +22,17 @@ echo "Using $p"
 homedir=`grep /bin/bash /etc/passwd | grep $p: | cut -d: -f6`
 echo 'homedir is '$homedir
 
+# get path of the currently running script
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
+if [ -z "$MY_PATH" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
 # unzip settings
-sudo tar xf xfce_skeleton.tar.bz2 -C $homedir
+sudo tar xf $MY_PATH/xfce_skeleton.tar.bz2 -C $homedir
 
 # change ownership
 sudo chown $p:$p -R $homedir

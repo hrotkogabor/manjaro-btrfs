@@ -28,7 +28,7 @@ if [ $(uname -m) = "i686" ]; then
 fi
 
 #install default stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu --overwrite /etc/skel/.config/autostart rsync lsof ecryptfs-utils acl mc mtools unarj activity-log-manager cronie at attr baobab bzip2 exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter catdoc catfish copyq doublecmd-gtk2 libunrar dstat gnome-disk-utility gnome-system-monitor gnupg gzip hardinfo hddtemp hdparm htop iotop keepassxc lshw meld gnome-nettool seahorse smplayer smtube strace tar unace unrar unzip wget youtube-dl zeitgeist-explorer pacaur synapse exfat-utils pdfmod fd mlocate manjaro-tools-base zenity lbzip2 compsize
+yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu --overwrite /etc/skel/.config/autostart rsync lsof ecryptfs-utils acl mc mtools unarj activity-log-manager cronie at attr baobab bzip2 exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter catdoc catfish copyq doublecmd-gtk2 libunrar dstat gnome-disk-utility gnome-system-monitor gnupg gzip hardinfo hddtemp hdparm htop iotop keepassxc lshw meld gnome-nettool seahorse smplayer smtube strace tar unace unrar unzip wget youtube-dl zeitgeist-explorer pacaur synapse exfat-utils pdfmod fd mlocate manjaro-tools-base zenity lbzip2 compsize filemanager-actions
 
 # synapse vs ulauncher?
 
