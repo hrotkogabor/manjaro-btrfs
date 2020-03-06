@@ -13,7 +13,7 @@ then
   exit 0
 fi
 
-if [ -z $1 ]
+if [ -z $2 ]
 then
   echo "Second parameter DEVICE is required! e.g. /dev/sda"
   exit 0
