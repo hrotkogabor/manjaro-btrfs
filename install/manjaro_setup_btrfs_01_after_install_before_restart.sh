@@ -3,7 +3,7 @@
 # Otherwise it should be run within livecd.
 
 # get the partitions by fstype
-list=`blkid -t TYPE="btrfs"`
+list=`sudo blkid -t TYPE="btrfs"`
 
 if [ -z "$list" ]
 then
