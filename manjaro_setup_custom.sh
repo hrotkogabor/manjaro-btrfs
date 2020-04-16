@@ -6,6 +6,25 @@ if [ $(id -u) = "0" ]; then
 	exit 0
 fi
 
-pacaur -aS --noconfirm --noedit vivaldi
+# gwenview imageviewer, with imageformats and video thumbnails, image rating will not work with all theme
+echo "1" | sudo pacman -S --needed --noconfirm gwenview kio-extras qt5-imageformats kimageformats ffmpegthumbs byobu
+
+# install some stuff from AUR
+export GNUPGHOME=~/aur
+yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu youtube-dl-gui-git yad-git pdfchain
+
+if [ $(uname -m) = "x86_64" ]; then
+	export GNUPGHOME=~/aur; yay -aS --sudoloop --noredownload --noconfirm --noeditmenu gnome-encfs-manager-bin
+fi
+
+# vivaldi
+yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu vivaldi
+
+# install codecs
+sudo /opt/vivaldi/update-ffmpeg
+# drm
+sudo /opt/vivaldi/update-widevine
+
+echo -e "\nInstall custom stuff ready."
 
 read

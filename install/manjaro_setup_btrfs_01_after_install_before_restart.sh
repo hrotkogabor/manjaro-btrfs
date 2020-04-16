@@ -64,24 +64,22 @@ myFstabLine=`grep /home /mnt/@/etc/fstab | grep UUID`
 
 # /var
 sudo btrfs sub create /mnt/@var
-sudo rsync -azh /mnt/@/var/ /mnt/@var/
+sudo rsync -ah /mnt/@/var/ /mnt/@var/
 sudo rm -rf /mnt/@/var/*
 echo "${myFstabLine//home/var}" | sudo tee -a /mnt/@/etc/fstab
 
 # move pacman db to /usr/var/pacman
 sudo mkdir -p /mnt/@/usr/var/pacman
-sudo rsync -azh /mnt/@var/lib/pacman/ /mnt/@/usr/var/pacman/
+sudo rsync -ah /mnt/@var/lib/pacman/ /mnt/@/usr/var/pacman/
 sudo rm -r /mnt/@var/lib/pacman
 sudo sed -i -e 's/#DBPath *= \/var\/lib\/pacman\//#DBPath = \/var\/lib\/pacman\/\nDBPath = \/usr\/var\/pacman\//g' /mnt/@/etc/pacman.conf
 
 # /usr/local
 sudo mkdir /mnt/@usr
 sudo btrfs sub create /mnt/@usr/local
-sudo rsync -azh /mnt/@/usr/local/ /mnt/@usr/local/
+sudo rsync -ah /mnt/@/usr/local/ /mnt/@usr/local/
 sudo rm -rf /mnt/@/usr/local/*
 echo "${myFstabLine//home/usr\/local}" | sudo tee -a /mnt/@/etc/fstab
-
-sudo mkdir -p /mnt/@usr/local/bin
 
 
 # get path of the currently running script
@@ -94,7 +92,14 @@ if [ -z "$MY_PATH" ] ; then
 fi
 
 
+# make sudo more user friendly
+# remove sudo timeout, make cache global, extend timeout
+sudo cp $MY_PATH/script/20-password-timeout-0-ppid-60min /mnt/@/etc/sudoers.d/20-password-timeout-0-ppid-60min
+sudo chmod 440 /mnt/@/etc/sudoers.d/20-password-timeout-0-ppid-60min 
+
+
 # copy these scripts to /usr/local/bin
+sudo mkdir -p /mnt/@usr/local/bin
 sudo cp $MY_PATH/usr/*.sh /mnt/@usr/local/bin
 sudo chmod +x /mnt/@usr/local/bin/*.sh
 
@@ -105,4 +110,3 @@ echo -e "\033[5m!!\033[0m"
 echo -e "\033[1mReboot to the installed system, and run manjaro_setup_btrfs_02_after_install_after_restart.sh\033[0m"
 echo -e "\033[5m!!\033[0m"
 read
-

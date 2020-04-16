@@ -10,6 +10,6 @@ fi
 yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa 
 
 #install dev AUR stuff
-pacaur -aS --noconfirm --noedit gstm 
+yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm 
 
 read

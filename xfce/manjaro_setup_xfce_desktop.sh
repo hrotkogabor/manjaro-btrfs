@@ -18,9 +18,16 @@ done
 
 echo "Using $p"
 
+
 # get home dir of user
 homedir=`grep /bin/bash /etc/passwd | grep $p: | cut -d: -f6`
 echo 'homedir is '$homedir
+
+# check if .config exists
+if [ $(sudo test -d $homedir"/.config") ]; then
+	echo "User's .config dir does not exsits: "$homedir"/.config, maybe the user's home is encrypted."
+	exit 0
+fi
 
 # get path of the currently running script
 MY_PATH="`dirname \"$0\"`"              # relative

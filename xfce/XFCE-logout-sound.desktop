@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=XFCE Logout Sound
+Comment=
+Exec=/usr/bin/canberra-gtk-play --id="service-logout" --description="XFCE Logout"
+OnlyShowIn=XFCE;
+RunHook=1
+StartupNotify=false
+Terminal=false
+Hidden=false
+

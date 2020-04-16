@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=XFCE Login Sound
+Comment=
+Exec=/usr/bin/canberra-gtk-play --id="service-login" --description="XFCE Login"
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+
