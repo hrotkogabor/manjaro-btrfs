@@ -1,0 +1,10 @@
+--- CatfishSearchEngine_origi.py	2020-02-28 09:33:16.467843132 +0100
++++ CatfishSearchEngine.py	2020-02-28 09:29:41.331342420 +0100
+@@ -525,6 +525,7 @@
+ 
+     def run(self, keywords, path, regex=False, exclude_paths=[]):
+         """Run the Zeitgeist SearchMethod."""
++        keywords = " ".join(keywords)
+         self.stop_search = False
+         event_template = Event()
+         time_range = TimeRange.from_seconds_ago(60 * 3600 * 24)
