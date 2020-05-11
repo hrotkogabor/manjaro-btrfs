@@ -4,7 +4,8 @@ These scripts can be used to automate some tasks to setup a complete manjaro sys
 
 With btrfs filesystem, we can set up a system with snapshots. With snapper and grub, we can rollback to a previous state, if anything goes wrong after a package install, or system update or anything else.
 
-The main goal is to get a system up and running on btrfs and snapper to make the easy rollback possible additional benefit to get my favorite default software installed :)
+The main goal is to get a system up and running on btrfs and snapper to make the easy rollback possible.
+Additional benefit is to get my favorite default software installed :)
 
 You can find the video from Nick (unicks.eu) below which inspired me to write these scripts.
 https://www.youtube.com/watch?v=-fT92-jGniI
