@@ -5,9 +5,10 @@
 sudo modprobe ecryptfs
 
 if [ $(grep pam_ecryptfs /etc/pam.d/system-auth | wc -l) = "0" ]; then
-    sudo sed -i '/^auth      required  pam_unix.so/a auth      required  pam_ecryptfs.so unwrap' /etc/pam.d/system-auth
-    sudo sed -i '/^password  required  pam_unix.so/i password  optional  pam_ecryptfs.so' /etc/pam.d/system-auth
-    sudo sed -i '/^session   required  pam_unix.so/a session   optional  pam_ecryptfs.so unwrap' /etc/pam.d/system-auth
+
+  sudo sed -i '/^auth\s*\[default=die\]\s*pam_faillock.so\s*authfail/a auth [success=1 default=ignore] pam_succeed_if.so service = systemd-user quiet\nauth    required    pam_ecryptfs.so unwrap' /etc/pam.d/system-auth
+  sudo sed -i '/^-password\s*\[success=1\s*default=ignore\]\s*pam_systemd_home.so/i password    optional    pam_ecryptfs.so' /etc/pam.d/system-auth
+  sudo sed -i '/^session\s*required\s*pam_unix.so/a session [success=1 default=ignore] pam_succeed_if.so service = systemd-user quiet\nsession    optional    pam_ecryptfs.so unwrap' /etc/pam.d/system-auth
 fi
 
 list=`grep /bin/bash /etc/passwd | cut -d: -f1 | grep -v root`

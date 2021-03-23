@@ -78,7 +78,6 @@ It will do the following:
 * call *script/stage_2_setup.sh* <a name="stage_2_setup"></a>
   * sync system time
   * try to set up the fastest mirror
-  * call *fix_catfish.sh*, which will install a catfish version, that does not have a conflict with zeitgeist, and apply a patch
   * do a full update, and install some necessary tools, like rsync, lsof ...
   * change login greeter to slick-greeter
   * on 64bit systems, install the kernel bootsplash
@@ -120,6 +119,17 @@ You should run this script for a user, that is not logged in currently.
 First run the script *xfce/manjaro_setup_xfce.sh* <a name="manjaro_setup_xfce"></a> to install some xfce related package.
 
 The script *xfce/manjaro_setup_xfce_desktop.sh* <a name="manjaro_setup_xfce_desktop"></a> will appy some modifications like add dockbarx dock, add some indicators to the panel, etc, for the selected user.
+* set theme to wallis
+* add dockbarx and set its theme to colors/dmd glass
+* add places and screenshot plugin to the panel
+* set default filemanager to caja
+* pin caja, firefox, catfish to dockbarx
+* set panel size to 42
+* modify energy management
+* set clock format to <span font="Arial 15">%a %d %b, %R:%S</span>
+* set gimp theme
+* add synapse to autostart
+
 
 # fix key problem during package update <a name="manjaro_setup_keyfix"></a>
 

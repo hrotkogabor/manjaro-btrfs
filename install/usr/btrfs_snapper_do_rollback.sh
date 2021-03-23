@@ -2,7 +2,7 @@
 # this script will do a snapper rollback, and then upfdate and re-install grub to use the proper snapshot
 
 echo "calling snapper rollback"
-sudo snapper rollback
+sudo snapper --ambit classic rollback
 
 echo "updating and re-installing grub"
 p=$(mount | grep ' on / ' | cut -d' ' -f1)
