@@ -97,7 +97,7 @@ fi
 # fix the "sparse file not allowed" error message on startup
 sudo sed -i -e 's/GRUB_SAVEDEFAULT=true/#GRUB_SAVEDEFAULT=true/g' /etc/default/grub
 echo "GRUB_REMOVE_LINUX_ROOTFLAGS=true" | sudo tee -a /etc/default/grub
-sudo sed -i -e 's/GRUB_TIMEOUT=10/GRUB_TIMEOUT=2/g' /etc/default/grub
+sudo sed -i -e 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=2/g' /etc/default/grub
 sudo update-grub
 
 # to see snapshot size in snapper list, this will slow down snapshot list
