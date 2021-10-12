@@ -19,6 +19,8 @@ fi
 sudo cp $MY_PATH/*.desktop /etc/xdg/autostart
 
 if [ $(uname -m) = "i686" ]; then
+        # 32 bit
+
 	#xfce stuff
 	yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu manjaro-xfce-gtk3-settings xfwm4-themes xfce4-indicator-plugin-gtk3-git xfce4-screensaver dockbarx xfce4-dockbarx-plugin
 	
@@ -26,10 +28,10 @@ if [ $(uname -m) = "i686" ]; then
 	yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu multiload-ng-systray-gtk3
 else
 	#xfce stuff
-	yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu manjaro-xfce-gtk3-settings xfwm4-themes xfce4-indicator-plugin-gtk3-git xfce4-screensaver
+	yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu manjaro-xfce-settings xfwm4-themes xfce4-screensaver
 	
 	#xfce AUR stuff
-	yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu dockbarx xfce4-dockbarx-plugin multiload-ng-systray-gtk3 xfce4-places-plugin
+	yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu dockbarx xfce4-dockbarx-plugin multiload-ng-systray-gtk3 xfce4-places-plugin xfce4-indicator-plugin
 fi
 
 echo -e "\nYou can run manjaro_setup_xfce_desktop.sh now."
