@@ -22,6 +22,7 @@ fi
 
 export LANG=$1                                                                                                                                                                    
 mount /.snapshots
+mount /boot/efi
 update-grub                                                                                                                                                                       
 grub-install $2
 read
