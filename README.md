@@ -7,6 +7,8 @@ With btrfs filesystem, we can set up a system with snapshots. With snapper and g
 The main goal is to get a system up and running on btrfs and snapper to make the easy rollback possible.
 Additional benefit is to get my favorite default software installed :)
 
+The main difference to timeshift, is that you can directly boot into an earlier state of the system in read-only mode, and restore that state.
+
 You can find the video from Nick (unicks.eu) below which inspired me to write these scripts.
 https://www.youtube.com/watch?v=-fT92-jGniI
 
@@ -129,6 +131,12 @@ The script *xfce/manjaro_setup_xfce_desktop.sh* <a name="manjaro_setup_xfce_desk
 * set clock format to <span font="Arial 15">%a %d %b, %R:%S</span>
 * set gimp theme
 * add synapse to autostart
+
+These are the exact steps:
+* create new user
+* log in with the new user
+* restart
+* run *xfce/manjaro_setup_xfce_desktop.sh* <a name="manjaro_setup_xfce_desktop"></a> choosing the new user
 
 
 # fix key problem during package update <a name="manjaro_setup_keyfix"></a>
