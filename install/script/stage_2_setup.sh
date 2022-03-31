@@ -44,6 +44,9 @@ fi
 # do full upgrade
 sudo pacman -Syyuu --needed --noconfirm 
 
+# remove timeshift, as we do it with snapper
+yes | LC_ALL=en_US.UTF-8 sudo pacman -R timeshift-autosnap-manjaro timeshift
+
 #install default stuff
 yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm base-devel
 yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --overwrite /etc/skel/.config/autostart binutils mc mtools unarj activity-log-manager at baobab exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter  catdoc copyq doublecmd-gtk2 libunrar dstat gnome-disk-utility gnome-system-monitor hddtemp iotop keepassxc lshw meld gnome-nettool seahorse smplayer smtube strace youtube-dl zeitgeist-explorer yay synapse fd manjaro-tools-base lbzip2 compsize filemanager-actions pigz gnome-calculator system-config-printer downgrade
