@@ -13,7 +13,7 @@ yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu vivaldi vivaldi-ffmpeg-codecs
 
 # install some stuff from AUR
 export GNUPGHOME=~/aur
-yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu youtube-dl-gui-git yad pdfchain
+yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu youtube-dl-gui-git yad pdfchain caja-pdf-tools hardinfo-gtk3
 
 if [ $(uname -m) = "x86_64" ]; then
 	export GNUPGHOME=~/aur; yay -aS --sudoloop --noredownload --noconfirm --noeditmenu gnome-encfs-manager-bin
