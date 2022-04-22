@@ -7,7 +7,7 @@ if [ $(id -u) = "0" ]; then
 fi
 
 #install default stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk
+yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk jq
 
 #install dev AUR stuff
 yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm 
