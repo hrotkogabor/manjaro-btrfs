@@ -7,7 +7,7 @@ if [ $(id -u) = "0" ]; then
 fi
 
 #install default stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk jq bind
+yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk jq bind pkgfile
 
 #install dev AUR stuff
 yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm 
