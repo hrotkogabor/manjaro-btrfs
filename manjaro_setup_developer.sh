@@ -10,6 +10,6 @@ fi
 yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk jq bind pkgfile
 
 #install dev AUR stuff
-yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm 
+yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm sftpman-gtk
 
 read
