@@ -23,7 +23,7 @@ sudo $MY_PATH/script/stage_2_setup.sh
 
 mkdir -p ~/aur
 export GNUPGHOME=~/aur
-yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu snap-pac-grub
+yay -aS --sudoloop --noredownload --norebuild --noconfirm snap-pac-grub snapper-gui-git
 
 echo -e "\nBtrfs with snapper and grub ready. You should restart."
 read

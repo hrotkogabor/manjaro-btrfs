@@ -94,7 +94,7 @@ fi
 
 # make sudo more user friendly
 # remove sudo timeout, make cache global, extend timeout
-sudo cp $MY_PATH/script/20-password-timeout-0-ppid-60min /mnt/@/etc/sudoers.d/20-password-timeout-0-ppid-60min
+sudo cp $MY_PATH/script/etc/sudoers.d/20-password-timeout-0-ppid-60min /mnt/@/etc/sudoers.d/20-password-timeout-0-ppid-60min
 sudo chmod 440 /mnt/@/etc/sudoers.d/20-password-timeout-0-ppid-60min 
 
 

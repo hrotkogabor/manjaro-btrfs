@@ -6,10 +6,14 @@ if [ $(id -u) = "0" ]; then
 	exit 0
 fi
 
+source base.sh
+
 #install default stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -Syyuu git gpa tk jq bind pkgfile
+array=(git tk jq bind pkgfile)
+
+installPkgs "${array[@]}"
 
 #install dev AUR stuff
-yay -aS --sudoloop --noredownload --norebuild --noconfirm --noeditmenu gstm sftpman-gtk
+yay -aS --sudoloop --noredownload --norebuild --noconfirm gstm gpgfrontend
 
 read

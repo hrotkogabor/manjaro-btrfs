@@ -82,7 +82,6 @@ It will do the following:
   * try to set up the fastest mirror
   * do a full update, and install some necessary tools, like rsync, lsof ...
   * change login greeter to slick-greeter
-  * on 64bit systems, install the kernel bootsplash
   * set up multi thread compression
   * disable speaker
   * enable AUR

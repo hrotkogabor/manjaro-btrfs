@@ -1,5 +1,6 @@
 #!/bin/bash
 # for virtualbox guest
+# NOt needed anymore!!
 
 sudo pacman -Syyuu --noconfirm --needed linux-latest-virtualbox-guest-modules
 sudo pacman -Syyuu --noconfirm --needed virtualbox-guest-utils

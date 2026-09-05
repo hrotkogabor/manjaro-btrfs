@@ -1,6 +1,10 @@
 #!/bin/bash
 # stage 2 setup
- 
+
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
+
+source $MY_PATH/../../base.sh 
 
 # get path of the currently running script
 MY_PATH="`dirname \"$0\"`"              # relative
@@ -36,56 +40,32 @@ if [ $(uname -m) = "i686" ]; then
 fi
 
 
-# fix catfish # not needed, fixed upstream
-#chmod +x $MY_PATH/fix_catfish.sh
-#sudo $MY_PATH/fix_catfish.sh
-
+# remove timeshift, as we do it with snapper
+yes | LC_ALL=en_US.UTF-8 sudo pacman -R timeshift-autosnap-manjaro timeshift
 
 # do full upgrade
 sudo pacman -Syyuu --needed --noconfirm 
 
-# remove timeshift, as we do it with snapper
-yes | LC_ALL=en_US.UTF-8 sudo pacman -R timeshift-autosnap-manjaro timeshift
-
 #install default stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm base-devel
-yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --overwrite /etc/skel/.config/autostart binutils mc mtools unarj activity-log-manager at baobab exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter  catdoc copyq doublecmd-gtk2 libunrar dstat gnome-disk-utility gnome-system-monitor hddtemp iotop keepassxc lshw meld gnome-nettool seahorse smplayer smtube strace youtube-dl zeitgeist-explorer yay synapse fd manjaro-tools-base lbzip2 compsize filemanager-actions pigz gnome-calculator system-config-printer downgrade bash-completion iftop net-tools hunspell-en_us
+#yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm base-devel
+#yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --overwrite /etc/skel/.config/autostart binutils mc mtools unarj activity-log-manager at baobab exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter  catdoc copyq doublecmd-gtk2 libunrar dool gnome-disk-utility gnome-system-monitor hddtemp iotop keepassxc lshw meld gnome-nettool seahorse smplayer strace zeitgeist-explorer yay synapse fd manjaro-tools-base lbzip2 compsize pigz gnome-calculator system-config-printer downgrade bash-completion iftop net-tools hunspell-en_us ncdu okular rebuild-detector yay
+array=(base-devel binutils mc mtools unarj activity-log-manager at baobab exempi caja caja-extensions-common caja-share caja-sendto caja-wallpaper caja-open-terminal caja-xattr-tags caja-image-converter  catdoc copyq doublecmd-qt5 libunrar dool gnome-disk-utility gnome-system-monitor hddtemp iotop keepassxc lshw meld gnome-nettool seahorse smplayer strace zeitgeist-explorer yay synapse fd manjaro-tools-base-git lbzip2 compsize pigz gnome-calculator system-config-printer downgrade bash-completion iftop net-tools hunspell-en_us ncdu okular rebuild-detector yay lightdm-settings lightdm-slick-greeter zenity)
+installPkgs "${array[@]}"
 
 # synapse vs ulauncher?
 
 # change login greeter
-yes | LC_ALL=en_US.UTF-8 sudo sudo pacman -S --needed lightdm-settings lightdm-slick-greeter
+#yes | LC_ALL=en_US.UTF-8 sudo sudo pacman -S --needed lightdm-settings lightdm-slick-greeter
 
 sudo sed -i 's/greeter-session=lightdm-gtk-greeter/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
 
 
-# set up bootsplash
-if [ $(uname -m) = "x86_64" ]; then
-    yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm bootsplash-theme-manjaro bootsplash-systemd
-
-    # set boot splash
-    if ! grep -q bootsplash /etc/mkinitcpio.conf; then
-        sudo sed -i 's/HOOKS="[^"]*/& bootsplash-manjaro/' /etc/mkinitcpio.conf
-        sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& bootsplash.bootfile=bootsplash-themes\/manjaro\/bootsplash/' /etc/default/grub
-        sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet /GRUB_CMDLINE_LINUX_DEFAULT="/' /etc/default/grub
-        
-        presets=''
-        for i in `ls /etc/mkinitcpio.d/`;  do
-            presets=${presets}' -p '`echo $i | sed 's/.preset//g'`
-        done
-        sudo mkinitcpio $presets
-        
-        sudo update-grub
-    fi
-fi
-
-
 # multi thread compress
-cd /usr/local/bin
-sudo ln -s /usr/bin/lbzip2 bzip2
-sudo ln -s /usr/bin/lbzip2 bunzip2
-sudo ln -s /usr/bin/lbzip2 bzcat
-sudo ln -s /usr/bin/pigz gzip
+#cd /usr/local/bin
+#sudo ln -s /usr/bin/lbzip2 bzip2
+#sudo ln -s /usr/bin/lbzip2 bunzip2
+#sudo ln -s /usr/bin/lbzip2 bzcat
+#sudo ln -s /usr/bin/pigz gzip
 
 # disable speaker
 echo "blacklist pcspkr"  | sudo tee -a /etc/modprobe.d/nobeep.conf
@@ -107,7 +87,9 @@ sudo update-grub
 # to see snapshot size in snapper list, this will slow down snapshot list
 #sudo btrfs quota enable /
 
-yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm snapper
+array=(snapper)
+installPkgs "${array[@]}"
+
 sudo snapper -c root create-config /
 sudo snapper -c root set-config NUMBER_LIMIT=6 NUMBER_LIMIT_IMPORTANT=4
 
@@ -126,7 +108,7 @@ sudo mount /.snapshots
 sudo sed -i -e 's/PRUNENAMES = "/PRUNENAMES = ".snapshots /g' /etc/updatedb.conf
 
 # install btrfs stuff
-yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm snap-pac grub-btrfs snapper-gui
+yes | LC_ALL=en_US.UTF-8 sudo pacman -S --needed --noconfirm snap-pac grub-btrfs
 sudo sed -i -e 's/#GRUB_BTRFS_SUBMENUNAME="Arch Linux snapshots"/GRUB_BTRFS_SUBMENUNAME="Select snapshot"/g' /etc/default/grub-btrfs/config
 
 # disable core dump
@@ -145,3 +127,6 @@ NoDisplay=true
 X-GNOME-AutoRestart=true
 Terminal=false
 X-GNOME-Autostart-Delay=5' | sudo tee /etc/xdg/autostart/btrfs-ro-alert.desktop
+
+# 10-udisks2.rules: do not ask admin passwd on disk mount
+sudo cp -R $MY_PATH/etc/* /etc

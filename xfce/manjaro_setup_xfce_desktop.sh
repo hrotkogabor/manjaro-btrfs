@@ -1,7 +1,7 @@
 #!/bin/bash
 # customize xfce desktop
 
-list=`grep /bin/bash /etc/passwd | cut -d: -f1 | grep -v root`
+list=`grep -e /bin/bash -e /bin/zsh /etc/passwd | cut -d: -f1 | grep -v root`
 
 echo "Please select a user!"
 
@@ -20,7 +20,7 @@ echo "Using $p"
 
 
 # get home dir of user
-homedir=`grep /bin/bash /etc/passwd | grep $p: | cut -d: -f6`
+homedir=`grep -e /bin/bash -e /bin/zsh /etc/passwd | grep $p: | cut -d: -f6`
 echo 'homedir is '$homedir
 
 # check if .config exists
