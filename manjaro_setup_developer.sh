@@ -22,6 +22,6 @@ echo "export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh" | sudo tee -a /etc/profile.
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 
 #install dev AUR stuff
-yay -aS --sudoloop --noredownload --norebuild --noconfirm gstm gpgfrontend
+yay -aS --sudoloop --noredownload --norebuild --noconfirm gstm gpgfrontend gittyup-appimage
 
 read
